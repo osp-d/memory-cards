@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Card from './Card';
 export default Container;
 
-function Container({ setScore }) {
+function Container({ setScore, setBestScore }) {
   const [cards, setCards] = useState([{ name: 'initial' }]);
   const [previousCards, setPreviousCards] = useState();
 
@@ -49,7 +49,7 @@ function Container({ setScore }) {
   }
 
   const shuffledCards = shuffle(cards);
-  console.log(previousCards);
+  // console.log(previousCards);
 
   return (
     <div className="container">
@@ -60,8 +60,9 @@ function Container({ setScore }) {
             name={card.name}
             image={card.image}
             cardsValue={previousCards}
-            setScore={setScore}
             setCardsValue={(value) => setPreviousCards(value)}
+            setScore={setScore}
+            setBestScore={setBestScore}
           />
         );
       })}

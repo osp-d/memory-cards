@@ -1,6 +1,13 @@
 export default Card;
 
-function Card({ name, image, cardsValue, setScore, setCardsValue }) {
+function Card({
+  name,
+  image,
+  cardsValue,
+  setCardsValue,
+  setScore,
+  setBestScore,
+}) {
   return (
     <div
       onClick={() => {
@@ -12,14 +19,17 @@ function Card({ name, image, cardsValue, setScore, setCardsValue }) {
           });
         } else {
           setCardsValue([name]);
-          setScore;
+          setScore();
         }
 
         if (counter === 0 && cardsValue !== undefined) {
           let newCards = [...cardsValue];
           newCards.push(name);
           setCardsValue(newCards);
-          setScore;
+          setScore();
+        } else if (counter !== 0 && cardsValue !== undefined) {
+          setCardsValue();
+          setBestScore();
         }
       }}
       className="card"
