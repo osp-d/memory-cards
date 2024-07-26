@@ -4,6 +4,7 @@ export default Container;
 
 function Container({ setScore }) {
   const [cards, setCards] = useState([{ name: 'initial' }]);
+  const [previousCards, setPreviousCards] = useState();
 
   useEffect(() => {
     let data = fetch('https://pokeapi.co/api/v2/pokemon?limit=12', {
@@ -39,16 +40,28 @@ function Container({ setScore }) {
     getData(data);
   }, []);
 
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const shuffledCards = shuffle(cards);
+  console.log(previousCards);
+
   return (
     <div className="container">
-      {cards.map((card) => {
-        console.log(card);
+      {shuffledCards.map((card) => {
         return (
           <Card
-            setScore={setScore}
             key={card.name}
             name={card.name}
             image={card.image}
+            cardsValue={previousCards}
+            setScore={setScore}
+            setCardsValue={(value) => setPreviousCards(value)}
           />
         );
       })}
